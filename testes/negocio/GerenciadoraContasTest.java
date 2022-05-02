@@ -155,51 +155,75 @@ public class GerenciadoraContasTest {
 		
 	}
 	
-	
 	@Test
-	public void testSacarValor() {
+	public void testDepositaValorClienteInativo() {
 		
-		int idConta01 = 1;
+		int idConta01= 1;
 		
-		ContaCorrente conta01 = new ContaCorrente(idConta01, 100.0, true);
+		ContaCorrente conta01 = new ContaCorrente(idConta01, 0, false);
 		
 		List<ContaCorrente> contasDoBanco = new ArrayList<>();
 		contasDoBanco.add(conta01);
 		
 		gerContas = new GerenciadoraContas(contasDoBanco);
 		
-		conta01.sacar(100.0);
+		conta01.depositar(100);
 		
 		assertThat(conta01.getSaldo(), is(0.0));
-			
-		
 		
 	}
-	
-	
+		
 	@Test
-	public void testeSacarValor() {
+	public void testeSacarValorSaldoSuficiente() {
 		
 		int idConta01 = 1;
-		int idConta02 = 2;
-		
-		
+				
 		ContaCorrente conta01 = new ContaCorrente(idConta01, 100.0, true);
-		ContaCorrente conta02 = new ContaCorrente(idConta02, 100.0, true);
 		
 		List<ContaCorrente> contasDoBanco =   new ArrayList<>();
 		contasDoBanco.add(conta01);
-		contasDoBanco.add(conta02);
 		
 		gerContas = new GerenciadoraContas(contasDoBanco);
 		
 		conta01.sacar(80);
-		conta02.sacar(50);
-		
-		
+				
 		assertThat(conta01.getSaldo(), is(20.0));
-		assertThat(conta02.getSaldo(), is(50.0));
 		
+	}
+	
+	@Test
+	public void testeSacarValorClienteSaldoInsuficiente() {
+		
+		int idConta01 = 1;
+				
+		ContaCorrente conta01 = new ContaCorrente(idConta01, 100.0, true);
+		
+		List<ContaCorrente> contasDoBanco =   new ArrayList<>();
+		contasDoBanco.add(conta01);
+		
+		gerContas = new GerenciadoraContas(contasDoBanco);
+		
+		conta01.sacar(180);
+				
+		assertThat(conta01.getSaldo(), is(100.0));
+		
+	}
+	
+	@Test
+	public void testeSacarValorClienteInativo() {
+		
+		int idConta01 = 1;
+				
+		ContaCorrente conta01 = new ContaCorrente(idConta01, 100.0, false);
+		
+		List<ContaCorrente> contasDoBanco =   new ArrayList<>();
+		contasDoBanco.add(conta01);
+		
+		gerContas = new GerenciadoraContas(contasDoBanco);
+		
+		conta01.sacar(80);
+				
+		assertThat(conta01.getSaldo(), is(100.0));		
 	}
 	
 	
