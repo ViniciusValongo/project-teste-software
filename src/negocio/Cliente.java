@@ -3,15 +3,15 @@ package negocio;
 public class Cliente {
 
 	private int id;
-	
+
 	private String nome;
-	
+
 	private int idade;
-	
+
 	private String email;
-	
+
 	private boolean ativo;
-	
+
 	private int idContaCorrente;
 
 	public Cliente(int id, String nome, int idade, String email, int idContaCorrente, boolean ativo) {
@@ -23,26 +23,21 @@ public class Cliente {
 		this.ativo = ativo;
 	}
 
-
 	public int getId() {
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 
 	public String getNome() {
 		return nome;
 	}
 
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
 
 	public int getIdade() {
 		return idade;
@@ -51,7 +46,6 @@ public class Cliente {
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
-	
 
 	public String getEmail() {
 		return email;
@@ -61,38 +55,43 @@ public class Cliente {
 		this.email = email;
 	}
 
-
 	public boolean isAtivo() {
 		return ativo;
 	}
-
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
 
-
 	public int getIdContaCorrente() {
 		return this.idContaCorrente;
 	}
 
-
 	public void setIdContaCorrente(int idContaCorrente) {
 		this.idContaCorrente = idContaCorrente;
 	}
-	
 
 	@Override
 	public String toString() {
-		
-		String str ="=========================" 
-					+"Id: " + this.id + "\n"
-					+ "Nome: " + this.nome + "\n"
-					+ "Email: " + this.email + "\n"
-					+ "Idade: " + this.idade + "\n"
-					+ "Status: " + (ativo?"Ativo":"Inativo") + "\n"
-					+ "=========================";
+
+		String str = "=========================" + "Id: " + this.id + "\n" + "Nome: " + this.nome + "\n" + "Email: "
+				+ this.email + "\n" + "Idade: " + this.idade + "\n" + "Status: " + (ativo ? "Ativo" : "Inativo") + "\n"
+				+ "=========================";
 		return str;
 	}
+
+	public boolean validaIdade() {
+
+		if (idade < 18 || idade > 65)
+			return false;
+		else
+			return true;
+	}
 	
+	public boolean validaEmail() {
+		if(this.email.contains("@")) {
+			return true; 
+		}else return false;
+	}
+
 }

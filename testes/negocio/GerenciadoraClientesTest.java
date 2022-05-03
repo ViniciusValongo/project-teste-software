@@ -1,8 +1,10 @@
 package negocio;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,45 @@ public class GerenciadoraClientesTest {
 		
 	}
 	
+	
+	@Test
+	public void testeEmailCliente() {
+
+		Cliente cliente01 = new Cliente(1, "Gustavo Farias", 14, "gugafarias@gmail.com", 1, true);
+		
+
+		List<Cliente> clientesDoBanco = new ArrayList<>();
+		clientesDoBanco.add(cliente01);
+		
+		gerClientes = new GerenciadoraClientes(clientesDoBanco);
+		
+		Cliente cliente = gerClientes.pesquisaCliente(1);
+		
+		assertThat(cliente.getEmail(), is("gugafarias@gmail.com"));
+
+		
+	}
+	
+	
+	@Test
+	public void testeNomeCliente() {
+
+		Cliente cliente01 = new Cliente(1, "Gustavo Farias", 14, "gugafarias@gmail.com", 1, true);
+		
+
+		List<Cliente> clientesDoBanco = new ArrayList<>();
+		clientesDoBanco.add(cliente01);
+		
+		gerClientes = new GerenciadoraClientes(clientesDoBanco);
+		
+		Cliente cliente = gerClientes.pesquisaCliente(1);
+		
+		assertThat(cliente.getNome(), is("Gustavo Farias"));
+
+		
+	}
+	
+	
 	@Test
 	public void testeClienteIdadeValida() throws IdadeNaoPermitidaException {
 
@@ -63,29 +104,12 @@ public class GerenciadoraClientesTest {
 		
 		boolean cliente = gerClientes.validaIdade(18);
 		
-		assertThat(cliente, is(true));
+		assertTrue(cliente);
 		
 				
 	}
 	
-	
-	@Test
-	public void testeClienteIdadeInvalida() throws IdadeNaoPermitidaException {
 
-		Cliente cliente01 = new Cliente(1, "Gustavo Farias", 14, "gugafarias@gmail.com", 1, true);
-		
-
-		List<Cliente> clientesDoBanco = new ArrayList<>();
-		clientesDoBanco.add(cliente01);
-		
-		gerClientes = new GerenciadoraClientes(clientesDoBanco);
-		
-		boolean cliente = gerClientes.validaIdade(14);
-		
-		assertThat(cliente, is(IdadeNaoPermitidaException.MSG_IDADE_INVALIDA));
-		
-				
-	}
 	
 	
 	@Test
@@ -147,6 +171,25 @@ public class GerenciadoraClientesTest {
 		assertNull(gerClientes.pesquisaCliente(2));
 		
 	}
+	
+	@Test
+	public void testeClienteEmail() {
+
+		Cliente cliente01 = new Cliente(1, "Julya Havilla", 21, "julyahavilla@gmail.com", 1, true);
+		
+		assertTrue(cliente01.validaEmail());
+	}
+	
+	@Test
+	public void testeClienteEmailFail() {
+
+		Cliente cliente01 = new Cliente(1, "Julya Havilla", 21, "julyahavillagmail.com", 1, true);
+		
+		
+		assertFalse(cliente01.validaEmail());
+	}
+	
+
 	
 	
 
